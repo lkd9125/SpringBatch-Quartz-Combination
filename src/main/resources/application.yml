@@ -1,0 +1,36 @@
+server:
+    port: 8080
+
+spring:
+    quartz:
+        scheduler-name: QuartzScheduler
+        jdbc:
+            initialize-schema: never
+        job-store-type: jdbc
+    datasource:
+        metadata:
+            pool-name: metadata-db
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            jdbc-url: jdbc:mysql://localhost:33060/UTM_BATCH?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+            username: root
+            password: 12345678
+        services:
+            pool-name: service-db
+            driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+            jdbc-url: jdbc:log4jdbc:mysql://localhost:33060/UTM_KAC?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+            username: root
+            password: 12345678
+    application:
+        name: batch-quartz
+    jpa:        
+        hibernate:       
+            jdbc:
+                time_zone: Asia/Seoul     
+            ddl-auto: none
+            naming: 
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            show_sql: true    
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
